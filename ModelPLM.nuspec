@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>ModelPLM</id>
+    <version>1.0.3</version>
+    <title>PrzewodnikPLM</title>
+    <authors>MDemCode</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <description>
+	Library of PLM model.
+WARNING! An additional library (BasicSqlService.dll) is required to work properly!
+    </description>
+    <releaseNotes>ProfilPLM</releaseNotes>
+    <copyright>Copyright MDemCode (C) 2022</copyright>
+    <tags>model PLM</tags>
+  </metadata>
+</package>
