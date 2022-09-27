@@ -11,6 +11,7 @@ namespace ModelPLM
     public class NestingPLM {
 
         private readonly int _nesId; // NES_ID
+        private readonly int _nesBon; // NES_BON
         // NES_TYP ?? typ rozkroju?
 
         // rozkroje z tabeli NESTBAR
@@ -23,11 +24,21 @@ namespace ModelPLM
         public List<Nestdet> DetaleNestingu => _detaleNestingu ??= WczytajDetaleNestdet(_nesId);
         // UWAGA ! Wszystlie DetaleNestingu są potrzebne tylko w niektórych sytuacjach. Przy wczytywaniu rozkrojów detale są wczytane do poszczególnych rozkrojów jako 'DetaleRozkroju'
 
-        public NestingPLM(int nesId) {
+        public NestingPLM(int nesBon) {
+            _nesBon = nesBon;
+            bool nesIdZnaleziony = ZnajdzNesId(out int nesId);
             _nesId                    = nesId;
-            RozkrojeWczytanePoprawnie = _nesId > 0 && WczytajRozkroje();
+            RozkrojeWczytanePoprawnie = nesIdZnaleziony && WczytajRozkroje();
+            //_nesId                    = nesId;
+            //RozkrojeWczytanePoprawnie = _nesId > 0 && WczytajRozkroje();
         }
 
+        private bool ZnajdzNesId(out int nesId) {
+            nesId = -1;
+            if (_nesBon < 1) return false;
+            string nesIdTxt = SqlService.PobierzPojedynczyString(BazaDanych.Plm, "NESTING", "NES_ID", $"NES_BON='{_nesBon}'", out string blad);
+            return blad.IsNullOrEmpty() && int.TryParse(nesIdTxt, out nesId);
+        }
         private bool WczytajRozkroje() {
             if (_nesId < 1) return false;
             IEnumerable<string[]> rozkrojeDB = SqlService.PobierzDaneZBazy(BazaDanych.Plm, "NESTBAR", new[] {"BAR_ID"}, $"NES_ID='{_nesId}'", out string blad).ToList();

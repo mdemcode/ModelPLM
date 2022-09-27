@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>ModelPLM</id>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <title>PrzewodnikPLM</title>
     <authors>MDemCode</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
